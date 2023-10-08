@@ -8,6 +8,6 @@ in {
     description = "nu11z";
     home = "/home/${user}";
     extraGroups = [ "networkmanager" "wheel" "vboxsf" "libvirtd" ];
-    shell = pkgs.bash;
+    shell = pkgs.zsh;
   };
 }

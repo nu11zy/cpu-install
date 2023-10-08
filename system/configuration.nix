@@ -47,11 +47,14 @@
   nixpkgs.config.allowUnfree = true;
   
   # Features and packages
+  # Qemu
   virtualisation.libvirtd.enable = true;
-  
+  # Zsh
+  programs.zsh.enable = true;
+
   environment.systemPackages = with pkgs; [
     # VM manager
-    pkgs.virt-manager
+    virt-manager
     # VPN
     wireguard-tools
     # Git

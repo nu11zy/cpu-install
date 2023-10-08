@@ -33,6 +33,12 @@
     userEmail = "55335158+nu11zy@users.noreply.github.com";
   };
 
+  # Zsh
+  programs.zsh = {
+    enable = true;
+    dotDir = ".config/zsh";
+  };
+
   home.packages = [
     # Terminal
     pkgs.alacritty
@@ -50,7 +56,8 @@
 
   # Dotfiles
   xdg.configFile = {
-    "alacritty/alacritty.yml".source = dotfiles/alacritty.yml;
+    "alacritty/alacritty.yml".source = ./dotfiles/alacritty.yml;
+    "zsh/.zshrc".source = ./dotfiles/.zshrc;
   };
 
   # Let Home Manager install and manage itself.
