@@ -28,7 +28,15 @@
     enable = true;
     extensions = with pkgs.vscode-extensions; [
       pkief.material-icon-theme
+      jnoortheen.nix-ide
     ];
+  };
+
+  # Git
+  programs.git = {
+    enable = true;
+    userName  = "nu11zy";
+    userEmail = "55335158+nu11zy@users.noreply.github.com";
   };
   
   # The home.packages option allows you to install Nix packages into your
