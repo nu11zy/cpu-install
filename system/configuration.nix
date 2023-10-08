@@ -59,11 +59,22 @@
     wireguard-tools
     # Git
     git
+    # Xfce bar
+    xfce.xfce4-whiskermenu-plugin
+    # archive tools
+    unzip
+    # cat with colors 
+    bat
   ];
 
   # Fonts
   fonts.fonts = with pkgs; [
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode" ]; })
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    liberation_ttf
+    dina-font
   ];
 
   system.stateVersion = "23.05";
