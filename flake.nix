@@ -1,5 +1,6 @@
+# nixos-generate-config --show-hardware-config > ./system/hardware-configuration.nix
+# sudo nixos-rebuild switch --flake ".#vm-intel"
 {
-  # nixos-generate-config --show-hardware-config > ./system/hardware-configuration.nix
   description = "NixOS config.";
 
   inputs = {
