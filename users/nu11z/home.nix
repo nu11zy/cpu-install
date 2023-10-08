@@ -14,7 +14,31 @@
   # Browser
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-esr;
+    package = pkgs.wrapFirefox pkgs.firefox-esr-115-unwrapped {
+      extraPolicies = {
+        CaptivePortal = false;
+        DisableFirefoxStudies = true;
+        DisablePocket = true;
+        DisableTelemetry = true;
+        DisableFirefoxAccounts = false;
+        DontCheckDefaultBrowser = true;
+        NoDefaultBookmarks = true;
+        OfferToSaveLogins = false;
+        OfferToSaveLoginsDefault = false;
+        PasswordManagerEnabled = false;
+        FirefoxHome = {
+            Search = true;
+            Pocket = false;
+            Snippets = false;
+            TopSites = false;
+            Highlights = false;
+        };
+        UserMessaging = {
+            ExtensionRecommendations = false;
+            SkipOnboarding = true;
+        };
+      };
+    };
   };
   
   # Code\Text editor
@@ -37,6 +61,35 @@
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
+    initExtra = builtins.readFile dotfiles/.zshrc;
+    plugins = [
+      {
+        name = "zsh-autosuggestions";
+        src = pkgs.fetchFromGitHub {
+          owner = "zsh-users";
+          repo = "zsh-autosuggestions";
+          rev = "c3d4e576c9c86eac62884bd47c01f6faed043fc5";
+          sha256 = "B+Kz3B7d97CM/3ztpQyVkE6EfMipVF8Y4HJNfSRXHtU=";
+        };
+      }
+      {
+        name = "zsh-syntax-highlighting";
+        src = pkgs.fetchFromGitHub {
+          owner = "zsh-users";
+          repo = "zsh-syntax-highlighting";
+          rev = "143b25eb98aa3227af63bd7f04413e1b3e7888ec";
+          sha256 = "TKGCck51qQ50dQGntKaeSk8waK3BlwUjueg4MImTH8k=";
+        };
+      }
+    ];
+  };
+
+  gtk = {
+    enable = true;
+    theme.package = pkgs.nordic;
+    theme.name = "Nordic-darker-standart-buttons";
+    iconTheme.package = pkgs.papirus-icon-theme;
+    iconTheme.name = "ePapirus-Dark";
   };
 
   home.packages = [
@@ -52,12 +105,22 @@
     pkgs.bitwarden
     # Mail client
     pkgs.thunderbird
+    # Hex editor
+    pkgs.imhex
+    # Torrent client
+    pkgs.qbittorrent
+    # Office
+    pkgs.libreoffice-qt
+    pkgs.hunspell
+    pkgs.hunspellDicts.en_US
+    pkgs.hunspellDicts.ru_RU
+    # Archive manager
+    # pkgs.xarchiver
   ];
 
   # Dotfiles
   xdg.configFile = {
     "alacritty/alacritty.yml".source = ./dotfiles/alacritty.yml;
-    "zsh/.zshrc".source = ./dotfiles/.zshrc;
   };
 
   # Let Home Manager install and manage itself.
