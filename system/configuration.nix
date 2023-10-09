@@ -35,32 +35,29 @@
     LC_TIME = "ru_RU.UTF-8";
   };
 
-  hardware = {
-    pulseaudio.enable = false;
-    bluetooth.enable = false;
-  };
-
-  # Configure keymap in X11
+  # X11
   services.xserver = {
     enable = true;
     layout = "us,ru";
     xkbVariant = "";
-    desktopManager.xfce.enable = true;
+    displayManager.lightdm.enable = true;
+    desktopManager.cinnamon.enable = true;
   };
 
+  # Enable CUPS to print documents
+  services.printing.enable = true;
+
+  # Sound
+  sound.enable = true;
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
-    alsa = {
-      enable = true;
-      support32Bit = true;
-    };
+    alsa.enable = true;
+    alsa.support32Bit = true;
     pulse.enable = true;
   };
 
-  services.gnome.gnome-keyring.enable = true;
-
-  security.pam.services.gdm.enableGnomeKeyring = true;
-  
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   
@@ -70,22 +67,6 @@
   # Zsh
   programs.zsh.enable = true;
 
-  programs = {
-    dconf.enable = true;
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
-    thunar = {
-      enable = true;
-      plugins = with pkgs.xfce; [
-        thunar-archive-plugin
-        thunar-media-tags-plugin
-        thunar-volman
-      ];
-    };
-  };
-
   environment.systemPackages = with pkgs; [
     # VM manager
     virt-manager
@@ -93,16 +74,16 @@
     wireguard-tools
     # Git
     git
-    # Xfce tools
-    pavucontrol
-    xfce.catfish
-    gnome.file-roller
-    gnome.gnome-disk-utility
-    xfce.xfce4-whiskermenu-plugin
-    xfce.xfce4-pulseaudio-plugin
-    xfce.xfce4-xkb-plugin
-    xfce.xfce4-appfinder
-    xfce.xfce4-panel
+    ## Xfce tools
+    # pavucontrol
+    # xfce.catfish
+    # gnome.file-roller
+    # gnome.gnome-disk-utility
+    # xfce.xfce4-whiskermenu-plugin
+    # xfce.xfce4-pulseaudio-plugin
+    # xfce.xfce4-xkb-plugin
+    # xfce.xfce4-appfinder
+    # xfce.xfce4-panel
     # Archive tools
     unzip
     p7zip
@@ -117,8 +98,6 @@
     nordic
     # Clipboard tool
     xclip
-    # Font manager
-    font-manager
   ];
 
   # Fonts
@@ -130,11 +109,6 @@
     liberation_ttf
     dina-font
   ];
-
-  sound = {
-    enable = true;
-    mediaKeys.enable = true;
-  };
 
   system.stateVersion = "23.05";
 }
