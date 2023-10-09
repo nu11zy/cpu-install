@@ -86,11 +86,29 @@
 
   gtk = {
     enable = true;
-    theme.package = pkgs.nordic;
-    theme.name = "Nordic-darker-standart-buttons";
-    iconTheme.package = pkgs.papirus-icon-theme;
-    iconTheme.name = "ePapirus-Dark";
+    iconTheme = {
+      name = "ePapirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+    theme = {
+      name = "Nordic-darker-standard-buttons";
+      package = pkgs.nordic;
+    };
+    gtk3.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
+    gtk4.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
   };
+
+  # GnuPG
+  programs.gpg.enable = true;
+  services.gpg-agent.enable = true;
 
   home.packages = [
     # Terminal
@@ -106,7 +124,7 @@
     # Mail client
     pkgs.thunderbird
     # Hex editor
-    pkgs.imhex
+    pkgs.rehex
     # Torrent client
     pkgs.qbittorrent
     # Office
@@ -114,8 +132,6 @@
     pkgs.hunspell
     pkgs.hunspellDicts.en_US
     pkgs.hunspellDicts.ru_RU
-    # Archive manager
-    # pkgs.xarchiver
   ];
 
   # Dotfiles
