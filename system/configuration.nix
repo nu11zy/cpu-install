@@ -6,9 +6,10 @@
   ];
 
   # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.luks.devices."luks-8e747a78-08e0-4864-88c9-fefbc258ea98".device = "/dev/disk/by-uuid/8e747a78-08e0-4864-88c9-fefbc258ea98";
+  boot.supportedFilesystems = [ "ntfs" ];
 
   # Hostname
   networking.hostName = "cpu"; 
@@ -45,7 +46,12 @@
   };
 
   # Enable CUPS to print documents
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [ hplip ];
+  };
+
+  programs.system-config-printer.enable = true;
 
   # Sound
   sound.enable = true;
@@ -70,20 +76,11 @@
   environment.systemPackages = with pkgs; [
     # VM manager
     virt-manager
+    virtiofsd
     # VPN
     wireguard-tools
     # Git
     git
-    ## Xfce tools
-    # pavucontrol
-    # xfce.catfish
-    # gnome.file-roller
-    # gnome.gnome-disk-utility
-    # xfce.xfce4-whiskermenu-plugin
-    # xfce.xfce4-pulseaudio-plugin
-    # xfce.xfce4-xkb-plugin
-    # xfce.xfce4-appfinder
-    # xfce.xfce4-panel
     # Archive tools
     unzip
     p7zip

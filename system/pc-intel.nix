@@ -5,6 +5,11 @@
     ./configuration.nix
   ];
 
+  fileSystems."/vx" = {
+    device = "/dev/sdc1";
+    fsType = "ntfs";
+  };
+
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
